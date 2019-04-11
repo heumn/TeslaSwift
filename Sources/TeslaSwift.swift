@@ -648,7 +648,8 @@ extension TeslaSwift {
 		var request = URLRequest(url: URL(string: endpoint.baseURL(useMockServer) + endpoint.path)!)
 		request.httpMethod = endpoint.method
 		
-		request.setValue("TeslaSwift", forHTTPHeaderField: "User-Agent")
+		request.setValue("Mozilla/5.0 (Linux; Android 8.1.0; Pixel XL Build/OPM4.171019.021.D1; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/68.0.3440.91 Mobile Safari/537.36", forHTTPHeaderField: "User-Agent")
+        request.setValue("TeslaApp/3.4.4-350/fad4a582e/android/8.1.0", forHTTPHeaderField: "x-tesla-user-agent")
 		
 		if let token = self.token?.accessToken {
 			request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
