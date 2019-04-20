@@ -44,6 +44,7 @@ open class VehicleExtended: Vehicle {
 	}
 	
 	override open func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
 		
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		try container.encodeIfPresent(userId, forKey: .userId)
@@ -53,9 +54,6 @@ open class VehicleExtended: Vehicle {
 		try container.encodeIfPresent(guiSettings, forKey: .guiSettings)
 		try container.encodeIfPresent(vehicleConfig, forKey: .vehicleConfig)
 		try container.encodeIfPresent(vehicleState, forKey: .vehicleState)
-		
-		let superdecoder = container.superEncoder()
-		try super.encode(to: superdecoder)
 	}
 	
 }
