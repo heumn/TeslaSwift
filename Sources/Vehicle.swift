@@ -15,17 +15,7 @@ open class Vehicle: Codable {
 	open var calendarEnabled: Bool?
 	open var color: String?
 	open var displayName: String?
-	open var id: String? {
-		get {
-			guard let value = idInt else { return nil }
-			return "\(value)"
-		}
-		set {
-			guard let newValue = newValue else { idInt = nil; return }
-			idInt = Int64(newValue)
-		}
-	}
-	open var idInt: Int64?
+	open var id: String?
 	open var idS: String?
 	open var inService: Bool?
 	open var optionCodes: String?
@@ -43,7 +33,7 @@ open class Vehicle: Codable {
 		case calendarEnabled			 = "calendar_enabled"
 		case color					 = "color"
 		case displayName				 = "display_name"
-		case idInt						= "id"
+		case id						= "id"
 		case idS						 = "id_s"
 		case inService				 = "in_service"
 		case optionCodes				 = "option_codes"
@@ -70,7 +60,17 @@ open class Vehicle: Codable {
 		}()
 		color = try? container.decode(String.self, forKey: .color)
 		displayName = try? container.decode(String.self, forKey: .displayName)
-		idInt = try? container.decode(Int64.self, forKey: .idInt)
+
+        id = {
+            if let intValue = try? container.decode(Int64.self, forKey: .id) {
+                return String(describing: intValue)
+            } else if let stringValue = try? container.decode(String.self, forKey: .id) {
+                return stringValue
+            } else {
+                return nil
+            }
+        }()
+
 		idS = try? container.decode(String.self, forKey: .idS)
 		inService = {
 			if let boolValue = try? container.decode(Bool.self, forKey: .inService) {
@@ -96,7 +96,7 @@ open class Vehicle: Codable {
 		try container.encodeIfPresent(calendarEnabled, forKey: .calendarEnabled)
 		try container.encodeIfPresent(color, forKey: .color)
 		try container.encodeIfPresent(displayName, forKey: .displayName)
-		try container.encodeIfPresent(idInt, forKey: .idInt)
+		try container.encodeIfPresent(id, forKey: .id)
 		try container.encodeIfPresent(idS, forKey: .idS)
 		try container.encodeIfPresent(inService, forKey: .inService)
 		try container.encodeIfPresent(optionCodes, forKey: .optionCodes)
