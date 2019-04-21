@@ -286,7 +286,7 @@ extension TeslaSwift {
 		let first = promise.then(on: .global()) {
 			(token) -> Promise<Response<VehicleExtended>> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.allStates(vehicleID: vehicleID), body: nullBody)
 			
@@ -309,7 +309,7 @@ extension TeslaSwift {
 		return checkAuthentication().then(on: .global()) {
 			(token) -> Promise<BoolResponse> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.mobileAccess(vehicleID: vehicleID), body: nullBody)
 			
@@ -331,7 +331,7 @@ extension TeslaSwift {
 		return checkAuthentication().then(on: .global()) {
 			(token) -> Promise<Response<ChargeState>> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.chargeState(vehicleID: vehicleID), body: nullBody)
 			
@@ -352,7 +352,7 @@ extension TeslaSwift {
 		return checkAuthentication().then(on: .global()) {
 			(token) -> Promise<Response<ClimateState>> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.climateState(vehicleID: vehicleID), body: nullBody)
 				
@@ -373,7 +373,7 @@ extension TeslaSwift {
 		return checkAuthentication().then(on: .global()) {
 			(token) -> Promise<Response<DriveState>> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.driveState(vehicleID: vehicleID), body: nullBody)
 				
@@ -394,7 +394,7 @@ extension TeslaSwift {
 		return checkAuthentication().then(on: .global()) {
 			(token) -> Promise<Response<GuiSettings>> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.guiSettings(vehicleID: vehicleID), body: nullBody)
 			
@@ -415,7 +415,7 @@ extension TeslaSwift {
 		return checkAuthentication().then(on: .global()) {
 			(token) -> Promise<Response<VehicleState>> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.vehicleState(vehicleID: vehicleID), body: nullBody)
 			
@@ -436,7 +436,7 @@ extension TeslaSwift {
 		return checkAuthentication().then(on: .global()) {
 			(token) -> Promise<Response<VehicleConfig>> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.vehicleConfig(vehicleID: vehicleID), body: nullBody)
 			
@@ -457,7 +457,7 @@ extension TeslaSwift {
 		return checkAuthentication().then(on: .global()) {
 			(token) -> Promise<Response<Vehicle>> in
 			
-			let vehicleID = vehicle.id!
+			let vehicleID = vehicle.idS!
 			
 			return self.request(.wakeUp(vehicleID: vehicleID), body: nullBody)
 			
@@ -484,48 +484,48 @@ extension TeslaSwift {
 				switch command {
 				case let .valetMode(valetActivated, pin):
 					let body = ValetCommandOptions(valetActivated: valetActivated, pin: pin)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .openTrunk(options):
 					let body = options
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
                 case let .navigationRequest(address):
                     let body = address
-                    return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+                    return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .chargeLimitPercentage(limit):
 					let body = ChargeLimitPercentageCommandOptions(limit: limit)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .setTemperature(driverTemperature, passengerTemperature):
 					let body = SetTemperatureCommandOptions(driverTemperature: driverTemperature, passengerTemperature: passengerTemperature)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .setSunRoof(state, percent):
 					let body = SetSunRoofCommandOptions(state: state, percent: percent)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .startVehicle(password):
 					let body = RemoteStartDriveCommandOptions(password: password)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .speedLimitSetLimit(speed):
 					let body = SetSpeedLimitOptions(limit: speed)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .speedLimitActivate(pin):
 					let body = SpeedLimitPinOptions(pin: pin)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .speedLimitDeactivate(pin):
 					let body = SpeedLimitPinOptions(pin: pin)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				case let .speedLimitClearPin(pin):
 					let body = SpeedLimitPinOptions(pin: pin)
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
                 case let .setSeatHeater(seat, level):
                     let body = RemoteSeatHeaterRequestOptions(seat: seat, level: level)
-                    return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+                    return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
                 case let .setSteeringWheelHeater(on):
                     let body = RemoteSteeringWheelHeaterRequestOptions(on: on)
-                    return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+                    return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
                 case let .sentryMode(activated):
                     let body = SentryModeCommandOptions(activated: activated)
-                    return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: body)
+                    return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: body)
 				default:
-					return self.request(Endpoint.command(vehicleID: vehicle.id!, command: command), body: nullBody)
+					return self.request(Endpoint.command(vehicleID: vehicle.idS!, command: command), body: nullBody)
 				}
 		
 		}
